@@ -8,6 +8,7 @@ Asciimojis are available in the lobby chat, game prepare, and in-game for both t
 
 Because it still in developpement, please feel free to report me any error you find to atepir0\<at\>gmail.com.
 
+## Features
 This is a list of the currently available Asciimojis preceeded by the command displaying them :
 ```bash
                         "angry": "•`_´•",
@@ -55,4 +56,20 @@ This is a list of the currently available Asciimojis preceeded by the command di
 			"yolo": "Yᵒᵘ Oᶰˡʸ Lᶤᵛᵉ Oᶰᶜᵉ",
 			"yuno": "(屮ﾟДﾟ)屮 Y U NO",
 			"zombie": "[¬º-°]¬"  
-```                   
+```           
+
+## Guide to installation
+<ul>
+<li>1. Download the mod.zip (You can find it in out dir)</li>
+<li>2. Decompress it into the 0ad mods dir (the same directory as public mod)</li>
+<li>3. Open 0ad and go in the mods selection options</li>
+<li>4. Accept (or not ?) the statements of 0ad about mods</li>
+<li>5. Search, select and enable AsciimojisFor0ad</li>
+<li>6. Save (or not ?) your configuration</li>
+<li>7. Click the 0ad restart button</li>
+<li>8. You are now ready to type your first Asciimojis on 0ad ! Enjoy !</li>
+</ul>
+
+## Licence
+Permission is thereby granted, free of charge to use, reproduce or sell this program and all its components.
+I decline all responsability of a bad usage of this mod.

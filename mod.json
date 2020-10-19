@@ -1,0 +1,10 @@
+{
+	"name": "asciimojisFor0ad",
+	"version": "0.0.1",
+	"label": "provides asciimojis for 0ad. Made by a troll for trolls.",
+	"description": "Feature: provides asciimojis for 0ad. The full list of available asciimojis can be found on the github repository.",
+	"dependencies": [
+		"0ad=0.0.23",		"fgod=1.6.23"
+	],
+	"url": "https://github.com/atepir/trollmod"
+}
