@@ -6,7 +6,7 @@ Writing `:lenny:` in 0ad for this awesome guy ( ͡° ͜ʖ ͡°) may be pretty go
 
 Asciimojis are available in the lobby chat, game prepare, and in-game for both those who have and haven't the mod installed.
 
-Because it still in developpement, please feel free to report me any error you find to atepir0<at>gmail.com.
+Because it still in developpement, please feel free to report me any error you find to atepir0\<at\>gmail.com.
 
 This is a list of the currently available Asciimojis preceeded by the command displaying them :
 ```bash
