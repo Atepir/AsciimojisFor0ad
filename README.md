@@ -68,6 +68,8 @@ This is a list of the currently available Asciimojis preceeded by the command di
 <li>6. Save (or not ?) your configuration</li>
 <li>7. Click the 0ad restart button</li>
 <li>8. You are now ready to type your first Asciimojis on 0ad ! Enjoy !</li>
+
+NB : This mod requires Fgod to be installed.
 </ul>
 
 ## Licence

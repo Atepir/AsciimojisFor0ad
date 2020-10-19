@@ -1,20 +1,21 @@
 ## Variables
 PWD = $(shell pwd)
-OUT = $(PWD)out/AsciimojisFor0ad.zip
+# Primary output
+PRIMOUT = AsciimojisFor0ad.zip
 # Final and complete output for a quick install
-OUT2 = $(PWD)out/mod.zip
-SRC = AsciimojisFor0ad
+OUT = $(PWD)/out/mod.zip
+SRC = asciimojisFor0ad/*
 
 ## Flags
 ZFLAGS = -r
 
 ## BIN TARGETS
-$(OUT): $(SRC)
-	zip $(ZFLAGS) $(OUT) $(SRC)
+$(OUT): $(PRIMOUT) mod.json
+	zip $(ZFLAGS) $(OUT) $(PRIMOUT) mod.json && rm $(PRIMOUT)
 
-$(OUT2): $(OUT) mod.json
-	zip $(ZFLAGS) $(OUT2) $(OUT) mod.json
+$(PRIMOUT): $(SRC)
+	zip $(ZFLAGS) $(PRIMOUT) $(SRC)
 
 ## OTHER TARGETS
 clean:
-	rm -Rf $(OUT)
+	rm -Rf $(OUT) $(PWD)/out/*
