@@ -1,10 +1,10 @@
 ## Variables
 PWD = $(shell pwd)
 # Primary output
-PRIMOUT = AsciimojisFor0ad.zip
+PRIMOUT = asciimojis.zip
 # Final and complete output for a quick install
 OUT = $(PWD)/out/mod.zip
-SRC = asciimojisFor0ad/*
+SRC = gui/* mod.json
 
 ## Flags
 ZFLAGS = -r
