@@ -17,3 +17,9 @@ jobs:
     - name: Install dependencies
       run: make
 
+    - name: Deploy artifacts to Github
+      uses: actions/upload-artifact@v4
+      with:
+        name: artifacts
+        path: ./mod.zip
+
