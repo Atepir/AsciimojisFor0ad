@@ -3,7 +3,7 @@ PWD = $(shell pwd)
 # Primary output
 PRIMOUT = asciimojis.zip
 # Final and complete output for a quick install
-OUT = $(PWD)/out/mod.zip
+OUT = $(PWD)/mod.zip
 SRC = gui/* mod.json
 
 ## Flags
