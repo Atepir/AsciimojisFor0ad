@@ -18,4 +18,4 @@ $(PRIMOUT): $(SRC)
 
 ## OTHER TARGETS
 clean:
-	rm -Rf $(OUT) $(PWD)/out/*
+	rm -Rf $(OUT) $(PWD)/*
