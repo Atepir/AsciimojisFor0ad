@@ -61,6 +61,3 @@ This is a list of the currently available Asciimojis preceeded by the command di
 1. Download the latest release from the [releases page](https://github.com/Atepir/AsciimojisFor0ad/releases).
 
 2. Launch the .pyromod file with 0ad.
-
-## Licence
-This mod is under the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) licence.
