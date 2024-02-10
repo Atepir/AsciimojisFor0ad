@@ -1,4 +1,14 @@
+<!-- Title -->
+<div align="center">
+
 # AsciimojisFor0ad
+
+<p>
+<a href="https://github.com/Atepir/AsciimojisFor0ad/releases"><img src="https://img.shields.io/github/release/Atepir/AsciimojisFor0ad.svg?style=for-the-badge&color=gold&label=Version" height="20"></a>
+<a href="https://play0ad.com/download/"><img src="https://img.shields.io/badge/Compatibility-Alpha26%3A%20​Zhuangzi-gold?style=for-the-badge" height="20"></a>
+<a href=""><img src="https://img.shields.io/github/downloads/Atepir/AsciimojisFor0ad/total.svg?color=gold&amp&label=%E2%88%91%20Downloads&amp&style=for-the-badge" height="20"></a>
+<a href=""><img src="https://img.shields.io/badge/Discussion-Forum-gold?style=for-the-badge" height="20"></a>
+</p>
 
 <p>
 <!-- dev badges -->
@@ -81,3 +91,5 @@ This is a list of the currently available Asciimojis preceeded by the command di
 ## Licence
 Permission is thereby granted, free of charge to use, reproduce or sell this program and all its components.
 I decline all responsability of a bad usage of this mod.
+
+</div>
