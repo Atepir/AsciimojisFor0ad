@@ -1,5 +1,12 @@
 # AsciimojisFor0ad
 
+<p>
+<!-- dev badges -->
+<a href="https://github.com/Atepir/AsciimojisFor0ad/commits/main"><img src="https://img.shields.io/github/commits-since/Atepir/AsciimojisFor0ad/latest/main?style=for-the-badge" height="20"></a>
+<a href="https://github.com/Atepir/AsciimojisFor0ad/graphs/contributors"><img src="https://img.shields.io/maintenance/yes/2023?style=for-the-badge" height="20"></a>
+<a href="https://github.com/Atepir/AsciimojisFor0ad/commits/main"><img src="https://img.shields.io/github/commit-activity/m/Atepir/AsciimojisFor0ad?style=for-the-badge" height="20"></a>
+</p>
+
 This is a mod for 0ad which provides Asciimojis.
 
 Writing `:lenny:` in 0ad for this awesome guy ( ͡° ͜ʖ ͡°) may be pretty good :)
