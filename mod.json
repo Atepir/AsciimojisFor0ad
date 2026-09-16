@@ -1,10 +1,11 @@
 {
 	"name": "asciimojis",
-	"version": "0.0.26",
-	"label": "Provides asciimojis for 0ad.",
-	"description": "The full list of available asciimojis can be found on the github repository.",
+	"version": "0.28.0",
+	"label": "Provides asciimojis and emojis for 0ad.",
+	"description": "Writes :name: to send an asciimoji or an emoji. The full list can be found on the github repository.",
 	"ignoreInCompatibilityChecks": true,
-	"dependencies": ["0ad=0.0.26"],
+	"dependencies": [
+		"0ad>=0.28.0"
+	],
 	"url": "https://github.com/atepir/AsciimojisFor0ad"
 }
-

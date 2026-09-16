@@ -4,7 +4,7 @@ PWD = $(shell pwd)
 PRIMOUT = asciimojis.zip
 # Final and complete output for a quick install
 OUT = $(PWD)/mod.zip
-SRC = gui/* mod.json
+SRC = gui/* art/* mod.json
 
 ## Flags
 ZFLAGS = -r
@@ -18,4 +18,4 @@ $(PRIMOUT): $(SRC)
 
 ## OTHER TARGETS
 clean:
-	rm -Rf $(OUT) $(PWD)/*
+	rm -Rf $(OUT) $(PRIMOUT)
