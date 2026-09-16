@@ -12,11 +12,16 @@
     For every emoji of tools/emojis.json, this script:
       1. downloads the twemoji png (https://github.com/jdecked/twemoji,
          CC-BY 4.0) into art/textures/ui/asciimojis/<codepoint>.png, resized
-         to twice the size used in game (crisper with a GUI scale of 2);
-      2. writes the two <setup> files that register one icon per emoji:
+         to a power-of-two size (32x32 by default);
+      2. writes the <setup> files that register one icon per emoji:
            gui/common/resources/setup_asciimojis_icons.xml  (in-game chat)
            gui/lobby/icons/asciimojis.xml                   (lobby chat)
-         both directories being included by the corresponding GUI page.
+           gui/gamesetup/setup.xml                          (game setup chat)
+         the last one replacing a file of the game, whose vanilla content is kept.
+
+    The dimensions of the pictures must be a power of two: the engine aborts
+    with an assertion when it converts a texture that is not, which hangs the
+    pyromod build of the CI (the build runs the engine to convert textures).
 
     The list of emoji names must be kept in sync with g_AsciimojisEmoji and
     g_AsciimojisAsciiArt of gui/common/global~asciimojis.js; the script warns
@@ -25,9 +30,13 @@
 .PARAMETER SkipDownload
     Only regenerate the XML files, without touching the png files.
 
+.PARAMETER Force
+    Download and resize the png files that already exist.
+
 .PARAMETER Check
     Fail (exit 1) instead of warning when the emoji lists of
-    gui/common/global~asciimojis.js and tools/emojis.json disagree.
+    gui/common/global~asciimojis.js and tools/emojis.json disagree, or when a
+    picture is missing or has a dimension that is not a power of two.
     Used by the CI.
 
 .EXAMPLE
@@ -37,6 +46,7 @@
 [CmdletBinding()]
 param(
     [switch]$SkipDownload,
+    [switch]$Force,
     [switch]$Check
 )
 
@@ -56,10 +66,17 @@ $iconsXml = @(
 )
 
 # Size of the png, in pixels, and size used by the game, in GUI pixels.
-$textureSize = 28
+# The png size has to be a power of two (the engine only converts those), the
+# GUI size has no such constraint (the vanilla icons use 14x14 and 18x12).
+$textureSize = 32
 $iconSize = "14 14"
 $twemojiVersion = "15.1.0"
 $twemojiUrl = "https://cdn.jsdelivr.net/gh/jdecked/twemoji@$twemojiVersion/assets/72x72"
+
+if ($textureSize -le 0 -or ($textureSize -band ($textureSize - 1)) -ne 0)
+{
+    throw "textureSize ($textureSize) must be a power of two."
+}
 
 Add-Type -AssemblyName System.Drawing
 
@@ -76,6 +93,30 @@ foreach ($group in @("emoji", "asciiart"))
 if (-not (Test-Path $imagePath))
 {
     New-Item -ItemType Directory -Path $imagePath -Force | Out-Null
+}
+
+# Returns the width and height of a png file by reading its IHDR chunk, so that
+# it works on any platform (System.Drawing is not available on Linux).
+function Get-PngSize([string]$file)
+{
+    $bytes = [System.IO.File]::ReadAllBytes($file)
+
+    # Encoded signature of a png file, followed by the IHDR chunk.
+    if ($bytes.Length -lt 24 -or $bytes[0] -ne 137 -or $bytes[1] -ne 80 -or
+        $bytes[2] -ne 78 -or $bytes[3] -ne 71)
+    {
+        return $null
+    }
+
+    return @{
+        "width" = ($bytes[16] -shl 24) + ($bytes[17] -shl 16) + ($bytes[18] -shl 8) + $bytes[19]
+        "height" = ($bytes[20] -shl 24) + ($bytes[21] -shl 16) + ($bytes[22] -shl 8) + $bytes[23]
+    }
+}
+
+function Test-PowerOfTwo([int]$value)
+{
+    return $value -gt 0 -and ($value -band ($value - 1)) -eq 0
 }
 
 function Resize-EmojiPng([string]$source, [string]$destination, [int]$size)
@@ -110,7 +151,7 @@ if (-not $SkipDownload)
     {
         $codepoint = $allEmojis[$emoji]
         $destination = Join-Path $imagePath "$codepoint.png"
-        if (Test-Path $destination)
+        if ((Test-Path $destination) -and -not $Force)
         {
             Write-Host "keep    $emoji ($codepoint)"
             continue
@@ -132,6 +173,32 @@ if (-not $SkipDownload)
             Remove-Item $temporary -ErrorAction SilentlyContinue
         }
     }
+}
+
+# The engine only converts textures whose dimensions are a power of two, and a
+# texture it cannot convert aborts the pyromod build of the CI.
+$badImages = @()
+foreach ($emoji in $allEmojis.Keys)
+{
+    $png = Join-Path $imagePath "$($allEmojis[$emoji]).png"
+    if (-not (Test-Path $png))
+    {
+        $badImages += "$($allEmojis[$emoji]).png is missing ($emoji)"
+        continue
+    }
+
+    $size = Get-PngSize $png
+    if (-not $size -or -not (Test-PowerOfTwo $size["width"]) -or -not (Test-PowerOfTwo $size["height"]))
+    {
+        $badImages += "$(Split-Path $png -Leaf) is $($size["width"])x$($size["height"]) ($emoji)"
+    }
+}
+
+if ($badImages.Count)
+{
+    Write-Warning "Every emoji picture must exist and have power-of-two dimensions:"
+    $badImages | ForEach-Object { Write-Warning "  $_" }
+    if ($Check) { exit 1 }
 }
 
 # The icons have to be registered by every GUI page that displays chat lines.

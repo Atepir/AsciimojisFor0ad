@@ -80,6 +80,8 @@ powershell -ExecutionPolicy Bypass -File tools/fetch-emoji-assets.ps1
 
 This downloads the pictures into `art/textures/ui/asciimojis/` and regenerates the three files that register the icons: `gui/common/resources/setup_asciimojis_icons.xml` (in-game chat), `gui/lobby/icons/asciimojis.xml` (lobby chat) and `gui/gamesetup/setup.xml` (game setup chat). The last one replaces a file of the game (the game includes it as a file and not as a directory), which is why the generator keeps its vanilla content.
 
+Keep the pictures at 32x32: the engine only converts textures whose dimensions are a power of two, and aborts the build of the pyromod when it meets another size. `tools/fetch-emoji-assets.ps1 -Check` verifies this (and that the emoji lists are in sync), which is what the CI runs.
+
 ## Guide to installation
 1. Download the latest release from the [releases page](https://github.com/Atepir/AsciimojisFor0ad/releases).
 

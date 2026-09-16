@@ -17,6 +17,7 @@ jobs:
   build-pyromod:
     if: ${{ github.ref_type != 'tag' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     env:
       MOD_VERSION: ${{ github.sha }}
     steps:
@@ -37,6 +38,7 @@ jobs:
   release-pyromod:
     if: ${{ github.ref_type == 'tag' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: write
     env:
