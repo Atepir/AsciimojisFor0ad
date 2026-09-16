@@ -25,13 +25,19 @@
 .PARAMETER SkipDownload
     Only regenerate the XML files, without touching the png files.
 
+.PARAMETER Check
+    Fail (exit 1) instead of warning when the emoji lists of
+    gui/common/global~asciimojis.js and tools/emojis.json disagree.
+    Used by the CI.
+
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File tools/fetch-emoji-assets.ps1
 #>
 
 [CmdletBinding()]
 param(
-    [switch]$SkipDownload
+    [switch]$SkipDownload,
+    [switch]$Check
 )
 
 $ErrorActionPreference = "Stop"
@@ -188,8 +194,9 @@ foreach ($target in $targets)
     {
         New-Item -ItemType Directory -Path $directory -Force | Out-Null
     }
-    # No BOM: the game's XML parser and the mod tooling expect plain UTF-8.
-    [System.IO.File]::WriteAllLines($file, $lines, (New-Object System.Text.UTF8Encoding($false)))
+    # No BOM and LF line endings, so that the file is byte-identical on any
+    # platform (the CI checks that the committed files match this output).
+    [System.IO.File]::WriteAllText($file, ($lines -join "`n") + "`n", (New-Object System.Text.UTF8Encoding($false)))
     Write-Host ("wrote   {0}" -f $file)
 }
 
@@ -212,6 +219,7 @@ if ($missing.Count -or $extra.Count)
     Write-Warning "gui/common/global~asciimojis.js and tools/emojis.json are out of sync."
     if ($missing.Count) { Write-Warning "  in the js but not in the json: $($missing -join ', ')" }
     if ($extra.Count) { Write-Warning "  in the json but not in the js: $($extra -join ', ')" }
+    if ($Check) { exit 1 }
 }
 else
 {
